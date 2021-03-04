@@ -16,6 +16,7 @@ public class ProductManagerTest {
     private Book second = new Book(2, "The Lost World", 200, "Conan Doyle");
     private Smartphone third = new Smartphone(3, "Iphone10", 200, "Apple");
     private Smartphone forth = new Smartphone(4, "Redmi10", 200, "Xiaomi");
+    private Product fifth = new Product(5, "Pen", 150);
 
     @BeforeEach
     public void setUp() {
@@ -23,6 +24,23 @@ public class ProductManagerTest {
         productManager.add(second);
         productManager.add(third);
         productManager.add(forth);
+        productManager.add(fifth);
+    }
+
+    @Test
+    void shouldGetAll() {
+        Product[] actual = repository.findAll();
+        Product[] expected = new Product[]{first, second, third, forth, fifth};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSearchInProduct() {
+        String text = "Pen";
+
+        Product[] actual = productManager.searchBy(text);
+        Product[] expected = new Product[0];
+        assertArrayEquals(expected, actual);
     }
 
     @Test
